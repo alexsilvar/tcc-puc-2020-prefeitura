@@ -1,9 +1,9 @@
 import {Client, expect} from '@loopback/testlab';
-import {MsGeoreferencialApplication} from '../..';
+import {MsGeorreferencialApplication} from '../..';
 import {setupApplication} from './test-helper';
 
 describe('PingController', () => {
-  let app: MsGeoreferencialApplication;
+  let app: MsGeorreferencialApplication;
   let client: Client;
 
   before('setupApplication', async () => {

@@ -1,4 +1,4 @@
-import {MsGeoreferencialApplication} from '../..';
+import {MsGeorreferencialApplication} from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -14,7 +14,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new MsGeoreferencialApplication({
+  const app = new MsGeorreferencialApplication({
     rest: restConfig,
   });
 
@@ -27,6 +27,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: MsGeoreferencialApplication;
+  app: MsGeorreferencialApplication;
   client: Client;
 }

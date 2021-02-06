@@ -104,8 +104,8 @@ services:
       - kong-net
     ports:
       - 3001:3000
-  ms-georeferencial:
-    build: ../ms-georeferencial
+  ms-georreferencial:
+    build: ../ms-georreferencial
     networks:
       - kong-net
     ports:

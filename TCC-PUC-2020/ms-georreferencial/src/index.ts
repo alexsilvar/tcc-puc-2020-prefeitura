@@ -1,9 +1,9 @@
-import {ApplicationConfig, MsGeoreferencialApplication} from './application';
+import {ApplicationConfig, MsGeorreferencialApplication} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new MsGeoreferencialApplication(options);
+  const app = new MsGeorreferencialApplication(options);
   await app.boot();
   await app.start();
 
