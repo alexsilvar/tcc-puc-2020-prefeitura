@@ -92,18 +92,30 @@ services:
   #######################################
   # microserviços
   #######################################
+  ms-auth:
+    build: ../ms-auth
+    networks:
+      - kong-net
+    ports:
+      - 3000:3000
   ms-cidadao:
     build: ../ms-cidadao
     networks:
       - kong-net
+    ports:
+      - 3001:3000
   ms-georeferencial:
     build: ../ms-georeferencial
     networks:
       - kong-net
+    ports:
+      - 3002:3000
   ms-gestao-projetos:
     build: ../ms-gestao-projetos
     networks:
       - kong-net
+    ports:
+      - 3003:3000
 
 volumes:
   db-data-kong-postgres:
