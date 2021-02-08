@@ -7,4 +7,4 @@ Para rodar em docker localmente execute o comando ``docker-compose up`` neste di
 - Konga (UI para gerenciar Kong Gateway)
 # Rodar em Azure
 
-Utilize as instruções no diretório [azure](./azure)
+Utilize as instruções no diretório [azure](../azure)
