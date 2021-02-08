@@ -66,7 +66,9 @@ services:
       - kong:kong
     container_name: konga
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+      - DB_URI=postgres://kong:kong@kong-database:5432/postgres
+      - DB_ADAPTER=postgres
     networks:
       - kong-net
 
@@ -77,12 +79,12 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin:/root/.pgadmin
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - "5050:80"
     networks:
       - kong-net
     depends_on:
