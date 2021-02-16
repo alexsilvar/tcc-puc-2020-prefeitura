@@ -1,13 +1,24 @@
+import { uuid } from '@loopback/core';
 import { Entity, model, property } from '@loopback/repository';
 
-@model()
+export enum Roles {
+  CIDADAO = 'cidadao',
+  FUNCIONARIO = 'funcionario',
+  ADMIN = 'admin'
+}
+
+@model({
+  settings: {
+    hiddenProperties: ['password']
+  }
+})
 export class User extends Entity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
-    generated: true,
+    defaultFn: "uuid"
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',
@@ -18,14 +29,33 @@ export class User extends Entity {
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      format: 'email',
+    },
+    index: {
+      unique: true,
+    },
   })
   email: string;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      minLength: 8,
+      errorMessage: 'Password should have at least 8 characters',
+    },
   })
   password?: string;
+
+  @property({
+    type: 'string',
+    required: false,
+    jsonSchema: {
+      enum: Object.values(Roles),
+    },
+  })
+  role?: Roles;
 
   constructor(data?: Partial<User>) {
     super(data);

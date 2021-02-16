@@ -1,10 +1,12 @@
 {
     "ids": {
-        "User": 2
+        "User": 4
     },
     "models": {
         "User": {
-            "1": "{\"username\":\"admin\",\"email\":\"admin@admin.com\",\"role\":\"admin\",\"password\":\"admin\",\"id\":1}"
+            "1": "{\"username\":\"admin\",\"email\":\"admin@admin.com\",\"role\":\"admin\",\"password\":\"admin\",\"id\":1,\"role\":\"admin\"}",
+            "2": "{\"username\":\"cidadao\",\"email\":\"cidadao@cidadao.com\",\"role\":\"admin\",\"password\":\"admin\",\"id\":1,\"role\":\"cidadao\"}",
+            "3": "{\"username\":\"cidadao\",\"email\":\"cidadao@cidadao.com\",\"role\":\"admin\",\"password\":\"admin\",\"id\":1,\"role\":\"funcionario\"}"
         }
     }
 }
