@@ -234,6 +234,9 @@ export class UsersController {
     description: 'User DELETE success',
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
+    if (!this.hasRole(Roles.ADMIN)) {
+      throw new Error("Only Admins can delete");
+    }
     await this.userRepository.deleteById(id);
   }
 
@@ -254,9 +257,11 @@ export class UsersController {
 
   hasRole(role: Roles) {
     if (this != undefined && this.req != undefined && this.req.headers != undefined) {
-      let auth = this.req.headers['Authorization'];
+      let auth = this.req.headers['Authorization'] || this.req.headers['authorization'];
+      console.log(auth);
       if (auth != null && typeof auth == 'string' && jwt != null) {
-        let decoded = jwt.decode(auth, { complete: true });
+        let decoded = jwt.decode(auth.split(' ')[1], { complete: true });
+        console.log(decoded);
         if (typeof decoded == 'object' && decoded != null) {
           return decoded['payload']['role'] === role;
         }
