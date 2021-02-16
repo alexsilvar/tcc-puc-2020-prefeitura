@@ -1,11 +1,11 @@
 import { BootMixin } from '@loopback/boot';
-import { ApplicationConfig } from '@loopback/core';
+import { ApplicationConfig, Interceptor } from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import { RepositoryMixin } from '@loopback/repository';
-import { RestApplication } from '@loopback/rest';
+import { RestApplication, RestBindings } from '@loopback/rest';
 import { ServiceMixin } from '@loopback/service-proxy';
 import path from 'path';
 import { MySequence } from './sequence';
@@ -40,5 +40,18 @@ export class MsAuthApplication extends BootMixin(
         nested: true,
       },
     };
+
+    this.interceptor(ipFilter, { global: true, group: 'ipfilter', key: 'ipfilter-interceptor' })
   }
+}
+
+const ipFilter: Interceptor = async (invocationCtx, next) => {
+  const reqCtx = await ((await invocationCtx.get(RestBindings.Http.CONTEXT)).get(RestBindings.Http.REQUEST));
+  let fwdHost = reqCtx.headers['x-forwarded-host'];
+  console.log('API_GATEWAY: ', process.env.API_GATEWAY);
+  console.log('x-forwarded-host', fwdHost);
+  if (fwdHost === process.env.API_GATEWAY) {
+    return next();
+  }
+  throw new Error("Only the API Gateway can Call this API");
 }
