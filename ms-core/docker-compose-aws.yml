@@ -2,7 +2,7 @@ version: "3"
 
 services:
   kong-migrations:
-    image: kong
+    image: kong:2.3.3
     environment:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=postgresdbhost
@@ -14,7 +14,7 @@ services:
       - kong-net
 
   kong:
-    image: kong
+    image: kong:2.3.3
     container_name: kong
     environment:
       - LC_CTYPE=en_US.UTF-8
