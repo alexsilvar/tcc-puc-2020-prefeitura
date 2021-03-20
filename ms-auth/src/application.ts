@@ -41,7 +41,7 @@ export class MsAuthApplication extends BootMixin(
       },
     };
 
-    this.interceptor(ipFilter, { global: true, group: 'ipfilter', key: 'ipfilter-interceptor' })
+    // this.interceptor(ipFilter, { global: true, group: 'ipfilter', key: 'ipfilter-interceptor' })
   }
 }
 

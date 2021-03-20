@@ -54,6 +54,64 @@ services:
     networks:
       - kong-net
 
+  #######################################
+  # microserviços
+  #######################################
+  ms-auth:
+    image: alexsilvar/ms-auth
+    environment:
+      #Kong JWT information to generate tokens
+      - JWT_KEY=KongJWTKey
+      - JWT_SECRET=KongJWTSecret
+      - JWT_TAGS=null
+      - JWT_RSA_PUBLIC_KEY=null
+      - JWT_ALGORITHM=HS256
+      #DB Connection information
+      - DB_HOST=ms_auth_dbhost
+      - DB_PORT=5432
+      - DB_USER=ms_auth_user
+      - DB_PASS=ms_auth_pass
+      - DB_DATABASE=ms_auth_db
+    networks:
+      - kong-net
+    ports:
+      - 3000:3000
+
+  # ms-cidadao:
+  #   image: alexsilvar/ms-cidadao
+  #   environment:
+  #     #DB Connection information
+  #     - DB_HOST=postgresdbhost
+  #     - DB_PORT=5432
+  #     - DB_USER=ms_cidadao
+  #     - DB_PASS=mscidadaoPassword
+  #     - DB_DATABASE=ms_cidadao
+  #   networks:
+  #     - kong-net
+  #   ports:
+  #     - 3001:3000
+
+  # ms-georreferencial:
+  #   image: alexsilvar/ms-georreferencial
+  #   environment:
+  #     #DB Connection information
+  #     - DB_HOST=postgresdbhost
+  #     - DB_PORT=5432
+  #     - DB_USER=ms_georreferencial
+  #     - DB_PASS=msgeorreferencialPassword
+  #     - DB_DATABASE=ms_georreferencial
+  #   networks:
+  #     - kong-net
+  #   ports:
+  #     - 3002:3000
+
+  # ms-gestao-projetos:
+  #   image: alexsilvar/ms-gestao-projetos
+  #   networks:
+  #     - kong-net
+  #   ports:
+  #     - 3003:3000
+
 networks:
   kong-net:
     external: false
