@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+.jumbotron {
+    background-image: url("/assets/images/jumbotron_02.jpg");
+    background-size: cover;
+    border-radius: 0px;
+}
+
+.jumbotron h1,
+.jumbotron p {
+    color: #fff;
+}
+
+.bg-dark {
+    background-color: #5c8a42 !important;
+}

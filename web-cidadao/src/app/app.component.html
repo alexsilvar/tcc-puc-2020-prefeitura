@@ -14,33 +14,31 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="" (click)="isMenuCollapsed = true">Início</a>
 
-      <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item" ngbDropdown>
-            <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
-              Serviços ao Cidadão
-            </a>
-            <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
-              <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Agendar Atendimento</a>
-              <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Consultar IPTU/ITR</a>
-            </div>
-          </li>
-        </ul>
+      <div class="nav-item" ngbDropdown>
+        <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
+          Serviços ao Cidadão
+        </a>
+        <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
+          <a ngbDropdownItem href="#" (click)="isMenuCollapsed = true;">Agendar Atendimento</a>
+          <a ngbDropdownItem href="consulta-iptu" (click)="isMenuCollapsed = true">Consultar IPTU/ITR</a>
+        </div>
       </div>
 
       <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true">Transparência</a>
 
       <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true">Contatos</a>
 
+      <div *ngIf="online">
+        <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true; logout();">Logout</a>
+      </div>
+      <div *ngIf="!online">
+        <a class="nav-item nav-link" href="login" (click)="isMenuCollapsed = true">Login</a>
+      </div>
     </div>
   </div>
 </nav>
 
 
-<div class="jumbotron">
-  <h1>Bom Destino</h1>
-  <p>Serviços ao Cidadão</p>
-</div>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+
+
+<router-outlet></router-outlet>
