@@ -1,0 +1,9 @@
+<button class="btn btn-primary" (click)="addRow()">Add Row</button>
+<hot-table class="hot" [hotId]="id" [data]="dataset" [colHeaders]="true" [rowHeaders]="true"
+  licenseKey="non-commercial-and-evaluation">
+  <!-- <hot-column data="id" [readOnly]="true" title="ID"></hot-column> -->
+  <hot-column data="cpfcnpj" title="CPF/CNPJ"></hot-column>
+  <hot-column data="numregistro" title="Nº de Registro"></hot-column>
+  <hot-column data="valor" type="numeric" title="Valor do IPTU/ITR"></hot-column>
+  <hot-column data="comentarios" title="Comentários"></hot-column>
+</hot-table>
