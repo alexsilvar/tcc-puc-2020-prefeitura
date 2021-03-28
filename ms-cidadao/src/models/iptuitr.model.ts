@@ -1,4 +1,4 @@
-import {Entity, model, property} from '@loopback/repository';
+import { Entity, model, property } from '@loopback/repository';
 
 @model()
 export class Iptuitr extends Entity {
@@ -13,17 +13,14 @@ export class Iptuitr extends Entity {
     type: 'string',
     required: true,
   })
-  cpfcnpj: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
   numregistro: string;
 
   @property({
     type: 'number',
     required: true,
+    postgresql: {
+      dataType: 'decimal'
+    },
   })
   valor: number;
 
@@ -32,6 +29,10 @@ export class Iptuitr extends Entity {
   })
   comentarios?: string;
 
+  @property({
+    type: 'string',
+  })
+  cpfCnpjId?: string;
 
   constructor(data?: Partial<Iptuitr>) {
     super(data);

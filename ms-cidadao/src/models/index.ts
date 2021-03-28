@@ -1,2 +1,3 @@
 export * from './iptuitr.model';
-export * from './emailcpf.model';
+export * from './email.model';
+export * from './cpf-cnpj.model';
