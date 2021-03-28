@@ -12,4 +12,8 @@ export class ConsultaIptuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onClick(event: any) {
+
+  }
+
 }

@@ -4,7 +4,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 .jumbotron {
-    background-image: url("/assets/images/jumbotron_02.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/assets/images/jumbotron_02.jpg");
     background-size: cover;
     border-radius: 0px;
 }

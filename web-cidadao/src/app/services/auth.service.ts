@@ -64,9 +64,11 @@ export class AuthService {
       this.dataSharing.isUserLoggedIn.next(false);
       return undefined
     };
-    let decoded = jwt_decode(token);
-    // console.log(decoded);
+    let decoded = jwt_decode(token) as any;
+    console.log(decoded);
     this.dataSharing.isUserLoggedIn.next(true);
+
+    this.dataSharing.username.next(decoded["username"]);
     return decoded;
   }
 

@@ -12,13 +12,17 @@ export class AppComponent implements OnInit {
   public isMenuCollapsed = true;
   public collapsed = true;
   online: boolean = false;
-
+  username: string = "";
   constructor(private authService: AuthService, private dataShare: DataSharingService) { }
 
   ngOnInit() {
     this.dataShare.isUserLoggedIn.subscribe(value => {
       this.online = value;
     });
+    this.dataShare.username.subscribe(value => {
+      this.username = value;
+    });
+
     this.authService.getUser();
   }
 

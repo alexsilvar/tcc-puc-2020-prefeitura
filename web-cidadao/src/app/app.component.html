@@ -29,10 +29,10 @@
       <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true">Contatos</a>
 
       <div *ngIf="online">
-        <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true; logout();">Logout</a>
+        <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true; logout();">Bem vindo {{username}}, clique para deslogar</a>
       </div>
       <div *ngIf="!online">
-        <a class="nav-item nav-link" href="login" (click)="isMenuCollapsed = true">Login</a>
+        <a class="nav-item nav-link" href="login" (click)="isMenuCollapsed = true">Bem vindo {{username}}, clique para logar</a>
       </div>
     </div>
   </div>
