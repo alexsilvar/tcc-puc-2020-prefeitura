@@ -12,6 +12,9 @@ export class Iptuitr extends Entity {
   @property({
     type: 'string',
     required: true,
+    index: {
+      unique: true,
+    },
   })
   numregistro: string;
 

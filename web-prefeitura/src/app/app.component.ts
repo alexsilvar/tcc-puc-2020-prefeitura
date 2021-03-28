@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HotTableRegisterer } from '@handsontable/angular';
 import Handsontable from 'handsontable';
+import { AuthService } from './services/auth.service';
+import { DataSharingService } from './services/data-sharing.service';
 
 @Component({
   selector: 'app-root',
@@ -8,35 +10,25 @@ import Handsontable from 'handsontable';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'web-prefeitura';
-  private hotRegisterer = new HotTableRegisterer();
-  id = 'hotInstance';
-  
-  columns: any[] = [
-    {},
-    {},
-    {},
-    { type: 'numeric' },
-    {},
-  ];
-  dataset: any[] = [
-    { id: 1, cpfcnpj: '12970961695', numregistro: 'MG123456789', valor: 825.6, comentarios: 'Comment' },
-    { id: 2, cpfcnpj: '12970961695', numregistro: 'MG123456789', valor: 825.6, comentarios: 'Comment' },
-    { id: 3, cpfcnpj: '12970961695', numregistro: 'MG123456789', valor: 825.6, comentarios: 'Comment' },
-    { id: 4, cpfcnpj: '12970961695', numregistro: 'MG123456789', valor: 825.6, comentarios: 'Comment' },
-    { id: 5, cpfcnpj: '12970961695', numregistro: 'MG123456789', valor: 825.6, comentarios: 'Comment' },
-  ];
+  title = 'web-prefeitura';  
+  public isMenuCollapsed = true;
+  public collapsed = true;
+  online: boolean = false;
+  username: string = "";
+  constructor(private authService: AuthService, private dataShare: DataSharingService) { }
 
-  addRow() {
-    this.dataset.push(
-      { id: this.dataset.length, cpfcnpj: '', numregistro: '', valor: 0, comentarios: '' }
-    );
-    this.hotInstance.loadData(this.dataset);
+  ngOnInit() {
+    this.dataShare.isUserLoggedIn.subscribe(value => {
+      this.online = value;
+    });
+    this.dataShare.username.subscribe(value => {
+      this.username = value;
+    });
+
+    this.authService.getUser();
   }
 
-
-  private get hotInstance(): Handsontable {
-    return this.hotRegisterer.getInstance(this.id);
+  logout() {
+    this.authService.logout();
   }
-
 }

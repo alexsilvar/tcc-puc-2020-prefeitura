@@ -1,0 +1,57 @@
+<div class="container text-align-center">
+  <ngb-alert *ngIf="alert != null" [type]="alert.type" [dismissible]="true" (closed)="dismissAlert()">{{alert.message}}
+  </ngb-alert>
+  <h1>Gerenciar IPTU/ITR</h1>
+  <nav ngbNav #nav="ngbNav" class="nav-tabs">
+    <ng-container ngbNavItem>
+      <a ngbNavLink (click)="hideEdit = true; refreshViewTable();">Visualização</a>
+      <ng-template ngbNavContent>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">CPF/CNPJ</th>
+              <th scope="col">Nº de Registro</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let iptuitr of iptuitrs; index as i">
+              <td> {{ iptuitr.cpfCnpjId }} </td>
+              <td> {{ iptuitr.numregistro }} </td>
+              <td>{{ iptuitr.valor | currency:'BRL' }}</td>
+              <td>{{ iptuitr.comentarios }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ng-container>
+    <ng-container ngbNavItem>
+      <a ngbNavLink (click)="hideEdit = false;">Criar/Editar IPTU/ITR</a>
+      <ng-template ngbNavContent>
+      </ng-template>
+    </ng-container>
+  </nav>
+  <div [ngbNavOutlet]="nav"></div>
+  <p *ngIf="isLoading">
+    <ngb-progressbar type="info" [value]="100" [striped]="true" [animated]="true"><i>Enviando Dados</i>
+    </ngb-progressbar>
+  </p>
+
+  <ng-container *ngIf="!hideEdit">
+    <br>
+    <button type="button" [disabled]="isLoading" class="btn btn-primary" (click)="submitData()">
+      Submeter Dados
+    </button>
+    <br>
+    <br>
+    <hot-table *ngIf="!isLoading" class="hot" stretchH="all" manualColumnResize="true" [hotId]="id" [data]="dataset"
+      [colHeaders]="true" [rowHeaders]="true" licenseKey="non-commercial-and-evaluation">
+      <!-- <hot-column data="id" [readOnly]="true" title="ID"></hot-column> -->
+      <hot-column data="cpfcnpj" title="CPF/CNPJ"></hot-column>
+      <hot-column data="numregistro" title="Nº de Registro"></hot-column>
+      <hot-column data="valor" type="numeric" title="Valor do IPTU/ITR"></hot-column>
+      <hot-column data="comentarios" title="Comentários"></hot-column>
+    </hot-table>
+  </ng-container>
+</div>
