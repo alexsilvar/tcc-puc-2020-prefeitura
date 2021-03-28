@@ -11,6 +11,7 @@ export interface CreateIPTUITR {
 }
 
 export interface UpdateIPTUITR {
+  id: string,
   numregistro: string,
   valor: number,
   comentarios: string,
@@ -39,11 +40,12 @@ export class IptuItrService {
   createIPTUITR(cpfcnpj, data: CreateIPTUITR) {
     return this.http.post(API_ENDPOINT + `/cpf-cnpjs/${cpfcnpj}/iptuitrs`, data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem(STORAGE_TOKEN) } }).toPromise().catch(err => {
       return this.http.get(API_ENDPOINT + `/cpf-cnpjs/${cpfcnpj}/iptuitrs`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem(STORAGE_TOKEN) } }).toPromise().then((res: Array<UpdateIPTUITR>) => {
-        let found = res.filter(el => el.cpfCnpjId == cpfcnpj)[0];
+        console.log(res);
+        let found = res.filter(el => el.cpfCnpjId == cpfcnpj && el.numregistro == data.numregistro)[0];
         found.comentarios = data.comentarios;
         found.numregistro = data.numregistro;
         found.valor = data.valor;
-        return this.http.patch(API_ENDPOINT + `/cpf-cnpjs/${cpfcnpj}/iptuitrs`, found, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem(STORAGE_TOKEN) } }).toPromise();
+        return this.http.patch(API_ENDPOINT + `/iptuitrs/` + found.id, found, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem(STORAGE_TOKEN) } }).toPromise();
       });
     });
   }
