@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   faLock = faLock;
   redirected: boolean = false;
   signup = false;
+  isLoading: boolean = false;
 
   loginGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,8 +46,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginGroup.valid) {
+      this.isLoading = true;
       this.authService.login({ email: this.loginGroup.get('email')?.value, password: this.loginGroup.get('password')?.value }).then(res => {
+        this.isLoading = false;
         this.router.navigate(['consulta-iptu']);
+      }).catch(err => {
+        this.isLoading = false;
+        alert("Usuário ou senha inválidos")
       })
     } else {
       alert("Informe email e senha")
@@ -62,14 +68,19 @@ export class LoginComponent implements OnInit {
       alert("A senha e a confirmação precisam ser iguais");
     }
     if (this.signupGroup.valid) {
+      this.isLoading = true;
       this.authService.signup({
         username: this.signupGroup.get('username')?.value,
         password: this.signupGroup.get('password')?.value,
-        email: this.signupGroup.get('email')?.value
+        email: this.signupGroup.get('email')?.value,
+        cpfcnpj: this.signupGroup.get('cpf')?.value
       }).then(res => {
         this.authService.login({
           password: this.signupGroup.get('password')?.value,
           email: this.signupGroup.get('email')?.value
+        }).finally(() => {
+          this.isLoading = false;
+          this.router.navigate([''])
         })
       })
     } else {

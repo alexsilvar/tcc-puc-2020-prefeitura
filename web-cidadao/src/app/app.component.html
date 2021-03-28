@@ -11,8 +11,8 @@
 
   <!-- Step 2: Add the ngbCollapse directive to the element below. -->
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="" (click)="isMenuCollapsed = true">Início</a>
+    <div class="navbar-nav mr-auto">
+      <a class="nav-item nav-link" href="" (click)="isMenuCollapsed = true">Início</a>
 
       <div class="nav-item" ngbDropdown>
         <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
@@ -28,12 +28,15 @@
 
       <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true">Contatos</a>
 
-      <div *ngIf="online">
-        <a class="nav-item nav-link" href="#" (click)="isMenuCollapsed = true; logout();">Bem vindo {{username}}, clique para deslogar</a>
-      </div>
-      <div *ngIf="!online">
-        <a class="nav-item nav-link" href="login" (click)="isMenuCollapsed = true">Bem vindo {{username}}, clique para logar</a>
-      </div>
+
+    </div>
+    <div *ngIf="online">
+      <a style="color: aliceblue;" class="nav-item nav-link" href="" (click)="isMenuCollapsed = true; logout();">Bem vindo {{username}}, clique
+        para deslogar</a>
+    </div>
+    <div *ngIf="!online">
+      <a style="color: aliceblue;" class="nav-item nav-link" href="login" (click)="isMenuCollapsed = true">Bem vindo {{username}}, clique para
+        logar</a>
     </div>
   </div>
 </nav>

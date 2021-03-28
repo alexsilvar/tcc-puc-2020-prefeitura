@@ -2,7 +2,6 @@
     Realize o login antes de acessar páginas restritas
 </ngb-alert>
 
-
 <div class="card" *ngIf="signup">
     <article class="card-body">
         <h4 class="card-title text-center mb-4 mt-1">Cadastro</h4>
@@ -60,10 +59,16 @@
                         type="password">
                 </div> <!-- input-group.// -->
             </div> <!-- form-group// -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" (click)="signupSubmit()"> Cadastrar </button>
-            </div> <!-- form-group// -->
-            <button class="btn btn-block" (click)="switchLoginSignup()"> Voltar ao Login </button>
+            <ngb-progressbar *ngIf="isLoading" type="info" [value]="100" [striped]="true" [animated]="true">
+                <i>Cadastrando</i>
+            </ngb-progressbar>
+            <div *ngIf="!isLoading">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" (click)="signupSubmit()"> Cadastrar
+                    </button>
+                </div> <!-- form-group// -->
+                <button class="btn btn-block" (click)="switchLoginSignup()"> Voltar ao Login </button>
+            </div>
         </form>
     </article>
 </div> <!-- card.// -->
@@ -94,10 +99,15 @@
                     <input formControlName="password" class="form-control" placeholder="******" type="password">
                 </div> <!-- input-group.// -->
             </div> <!-- form-group// -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" (click)="login()"> Login </button>
-            </div> <!-- form-group// -->
-            <button class="btn btn-block" (click)="switchLoginSignup()"> Cadastrar </button>
+            <ngb-progressbar *ngIf="isLoading" type="info" [value]="100" [striped]="true" [animated]="true">
+                <i>Logando</i>
+            </ngb-progressbar>
+            <div *ngIf="!isLoading">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" (click)="login()"> Login </button>
+                </div> <!-- form-group// -->
+                <button class="btn btn-block" (click)="switchLoginSignup()"> Cadastrar </button>
+            </div>
         </form>
     </article>
 </div> <!-- card.// -->

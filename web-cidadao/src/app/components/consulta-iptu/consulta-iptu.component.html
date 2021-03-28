@@ -5,7 +5,31 @@
 
 <div class="container">
     <p>Selecione uma Opção</p>
-    <button type="button" class="btn btn-info" (click)="onClick($event)">
-        Gerar Boleto IPTU/ITR
+    <button type="button" class="btn btn-info" (click)="onClick()">
+        Consultar IPTU/ITR
     </button>
+    <br><br>
+    <ngb-progressbar *ngIf="isLoading" type="info" [value]="100" [striped]="true" [animated]="true">
+        <i>Buscando IPTU/ITRs</i>
+    </ngb-progressbar>
+    <div class="table-responsive-sm">
+        <table *ngIf="iptuitrs != null" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">CPF/CNPJ</th>
+                    <th scope="col">Nº Registro</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Comentários</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let iptuitr of iptuitrs; index as i">
+                    <td> {{ iptuitr.cpfCnpjId }} </td>
+                    <td> {{ iptuitr.numregistro }} </td>
+                    <td>{{ iptuitr.valor | currency:'BRL' }}</td>
+                    <td>{{ iptuitr.comentarios }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { CidadaoService } from './cidadao.service';
 import { DataSharingService } from './data-sharing.service';
 
 const API_ENDPOINT = 'http://kong-gateway.us-east-2.elasticbeanstalk.com:8000';
@@ -16,6 +17,7 @@ interface SignUpCredentials {
   username: string;
   email: string;
   password: string;
+  cpfcnpj: string;
 }
 
 @Injectable({
@@ -23,7 +25,7 @@ interface SignUpCredentials {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router, private dataSharing: DataSharingService) { }
+  constructor(private http: HttpClient, private router: Router, private dataSharing: DataSharingService, private cidadaoService: CidadaoService) { }
 
   login(cred: LoginCredentials) {
     return this.http.post(API_ENDPOINT + '/login', cred).toPromise().then((response: any) => {
@@ -43,12 +45,17 @@ export class AuthService {
   logout() {
     localStorage.removeItem(STORAGE_TOKEN);
     this.dataSharing.isUserLoggedIn.next(false);
+    this.dataSharing.username.next('Cidadão');
   }
 
   signup(cred: SignUpCredentials) {
-    return this.http.post(API_ENDPOINT + '/signup/cidadao', cred).toPromise().then((response: any) => {
+    return this.http.post(API_ENDPOINT + '/signup/cidadao', { username: cred.username, email: cred.email, password: cred.password }).toPromise().then((response: any) => {
       if (response['error'] == undefined) {
-        return this.login({ email: cred.email, password: cred.password });
+        return this.login({ email: cred.email, password: cred.password }).then(res => {
+          return this.cidadaoService.setCPF(cred.email, cred.cpfcnpj).then(opt => {
+            return res;
+          });
+        });
       } else {
         throw new Error("Falha no Cadastro");
       }
@@ -65,7 +72,6 @@ export class AuthService {
       return undefined
     };
     let decoded = jwt_decode(token) as any;
-    console.log(decoded);
     this.dataSharing.isUserLoggedIn.next(true);
 
     this.dataSharing.username.next(decoded["username"]);
