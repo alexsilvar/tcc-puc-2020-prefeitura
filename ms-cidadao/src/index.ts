@@ -1,8 +1,9 @@
-import {ApplicationConfig, MsCidadaoApplication} from './application';
+import { ApplicationConfig, MsCidadaoApplication } from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
+  const dotenv = require('dotenv').config();
   const app = new MsCidadaoApplication(options);
   await app.boot();
   await app.start();
