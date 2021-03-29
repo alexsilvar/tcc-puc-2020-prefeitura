@@ -90,6 +90,18 @@ services:
       - kong-net
     ports:
       - 3001:3000
+  
+  #######################################
+  # WEB Pages
+  #######################################
+  web-cidadao:
+    image: alexsilvar/web-cidadao
+    ports:
+      - 80:80
+  web-prefeitura:
+    image: alexsilvar/web-prefeitura
+    ports:
+      - 81:80
 
 networks:
   kong-net:
