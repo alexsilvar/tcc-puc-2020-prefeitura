@@ -4,8 +4,6 @@ Este repositório é a parte prática, POC, do Trabalho de Conclusão de Curso d
 
 Ele é composto pelas soluções desenvolvidas com intuito de provar a eficácia da arquitetura proposta para a solução da situação problema.
 
-Todas as opções escolhidas são Open Source, focando o mínimo uso de recursos financeiros na sua implementação
-
 ## Componentes
 
 ### Módulo de Integração Geral - CORE
@@ -23,9 +21,9 @@ Módulo a ser utilizado pelos funcionários públicos
 - Cidadãos conseguem ver seus dados de IPTU/ITR
 
 ### Módulo Georreferencial
-Não Implantado na POC
+Não Implantado na POC - Presente no repositório para possível implementação futura
 ### Módulo Gestão de Projetos
-Não Implantado na POC
+Não Implantado na POC - Presente no repositório para possível implementação futura
 
 ## Live Demo
 
